@@ -1,0 +1,21 @@
+{
+  "name": "Lactamira - Mother & Baby Care",
+  "short_name": "Lactamira",
+  "description": "All-in-one health and care assistant for mothers and babies",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDF2F8",
+  "theme_color": "#FDF2F8",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

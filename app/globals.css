@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+    --border: 220 14% 95%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --primary: 275 91% 65%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 248 100% 91%;
+    --muted: 240 20% 98%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --border: 217 19% 27%;
+    --primary: 275 91% 65%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 248 100% 91%;
+    --muted: 217 19% 27%;
+  }
+}
+
+@layer components {
+  .card-glass {
+    @apply bg-white/60 backdrop-blur-md border border-white/30 shadow-xl rounded-xl;
+  }
+
+  .btn-glow {
+    @apply bg-pink-100 hover:bg-pink-200 text-pink-900 font-medium rounded-lg shadow-md transition-all;
+  }
+
+  .fade-in-up {
+    animation: fade-in-up 0.3s ease-out both;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus ring accessibility */
+.focus-ring {
+  @apply focus-visible:ring-2 focus-visible:ring-pink-500 focus:outline-none;
+}
+
+/* Utility for screen readers */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+}
+
+/* Hide scrollbar but allow scrolling */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
