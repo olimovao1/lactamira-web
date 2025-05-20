@@ -1,272 +1,457 @@
-import { Sparkles } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
+import {
+  Baby,
+  Calendar,
+  Clock,
+  Droplets,
+  Home,
+  Info,
+  LineChart,
+  Milk,
+  Moon,
+  Settings,
+  Utensils,
+  User,
+  FileText,
+} from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function HomePage() {
+  // Current time for greeting
+  const currentHour = new Date().getHours()
+  let greeting = "Good morning"
+  if (currentHour >= 12 && currentHour < 17) {
+    greeting = "Good afternoon"
+  } else if (currentHour >= 17) {
+    greeting = "Good evening"
+  }
+
+  // Dummy data
+  const [breastfeedingSessions, setBreastfeedingSessions] = useState([
+    { id: 1, time: "08:30 AM", duration: "25 min", side: "Left" },
+    { id: 2, time: "12:15 PM", duration: "20 min", side: "Right" },
+  ])
+
+  const babyData = {
+    name: "Ali",
+    age: "5 months",
+    weight: "7.2 kg",
+    height: "65 cm",
+    weightPercentile: 75,
+    heightPercentile: 68,
+  }
+
+  const hydrationData = {
+    current: 1.5,
+    goal: 2.5,
+    percentage: 60,
+  }
+
+  const cycleData = {
+    currentDay: 14,
+    phase: "Ovulation",
+    nextPeriod: "May 18",
+    daysUntilNextPeriod: 8,
+  }
+
+  const reminders = [
+    { id: 1, time: "3:00 PM", title: "Feeding time", description: "Left side" },
+    { id: 2, time: "5:30 PM", title: "Iron supplement", description: "1 tablet with meal" },
+    { id: 3, time: "8:00 PM", title: "Log baby's weight", description: "Weekly tracking" },
+  ]
+
+  const motivationalQuote = {
+    text: "You're doing amazing! Every moment you spend nurturing your baby is building a foundation of love and security that will last a lifetime.",
+    author: "Lactamira Team",
+  }
+
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-pink-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
-      {/* Main Content */}
-      <main className="flex-1 px-4 pb-20">
-        {/* Greeting Section */}
-        <section className="pt-8 pb-4 fade-in-up">
-          <h1 className="text-2xl font-semibold text-pink-900 dark:text-pink-300">Good evening, Ozoda 👋</h1>
-          <p className="text-sm text-pink-700 dark:text-pink-400 mt-1">
-            Here's what's important today for you and your baby
-          </p>
-        </section>
-
-        {/* Daily Affirmation Card */}
-        <section className="py-2 fade-in-up" style={{ animationDelay: "0.1s" }}>
-          <Card className="p-4 bg-gradient-to-br from-sunshine-100 to-sunshine-50 dark:from-amber-900/40 dark:to-amber-800/30 border-amber-200 dark:border-amber-700/50 relative overflow-hidden card-glass">
-            <div className="absolute top-0 right-0 w-16 h-16 opacity-10">
-              <Sparkles className="w-full h-full text-amber-600" />
-            </div>
-            <div className="flex items-center">
-              <div className="mr-3 bg-amber-200 dark:bg-amber-700 p-2 rounded-full">
-                <Sparkles className="h-4 w-4 text-amber-700 dark:text-amber-200" />
-              </div>
-              <div>
-                <h3 className="font-medium text-amber-900 dark:text-amber-200 text-sm">Today's Tip</h3>
-                <p className="text-amber-800 dark:text-amber-300 font-medium mt-1">
-                  Did you know breastfed babies need extra vitamin D supplements?
-                </p>
-              </div>
-            </div>
-          </Card>
-        </section>
-
-        {/* Main Feature Cards */}
-        <section className="py-4 fade-in-up" style={{ animationDelay: "0.2s" }}>
-          <h2 className="text-lg font-medium text-pink-900 dark:text-pink-300 mb-3">Quick Access</h2>
-          <div className="grid grid-cols-2 gap-3">
-            <Link href="/breastfeeding" className="block focus-ring rounded-xl">
-              <FeatureCard
-                icon="🍼"
-                title="Breastfeeding"
-                description="2 sessions · 35 mins"
-                bgColor="bg-blush-100 dark:bg-pink-900/40"
-                borderColor="border-pink-200 dark:border-pink-700/50"
-              />
-            </Link>
-            <Link href="/growth" className="block focus-ring rounded-xl">
-              <FeatureCard
-                icon="📈"
-                title="Baby Growth"
-                description="7.2kg · 65cm (75th %)"
-                bgColor="bg-blue-100 dark:bg-blue-900/40"
-                borderColor="border-blue-200 dark:border-blue-700/50"
-              />
-            </Link>
-            <Link href="/nutrition" className="block focus-ring rounded-xl">
-              <FeatureCard
-                icon="🍽️"
-                title="Nutrition Guide"
-                description="Iron-rich foods today"
-                bgColor="bg-green-100 dark:bg-green-900/40"
-                borderColor="border-green-200 dark:border-green-700/50"
-              />
-            </Link>
-            <Link href="/period" className="block focus-ring rounded-xl">
-              <FeatureCard
-                icon="📅"
-                title="Cycle Calendar"
-                description="Day 14 · Ovulation"
-                bgColor="bg-lavender-100 dark:bg-purple-900/40"
-                borderColor="border-purple-200 dark:border-purple-700/50"
-              />
-            </Link>
-            <FeatureCard
-              icon="💬"
-              title="Community"
-              description="3 new posts today"
-              bgColor="bg-teal-100 dark:bg-teal-900/40"
-              borderColor="border-teal-200 dark:border-teal-700/50"
-            />
-            <FeatureCard
-              icon="🛎️"
-              title="Reminders"
-              description="Feed in 30 min"
-              bgColor="bg-amber-100 dark:bg-amber-900/40"
-              borderColor="border-amber-200 dark:border-amber-700/50"
-            />
+    <div className="flex flex-col min-h-screen">
+      {/* Header */}
+      <header className="sticky top-0 z-10 bg-white shadow-md p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-pink-600">Lactamira</h1>
+            <p className="text-sm text-pink-500">Your maternal health companion</p>
           </div>
-        </section>
-
-        {/* Daily Stats Overview */}
-        <section className="py-4 fade-in-up" style={{ animationDelay: "0.3s" }}>
-          <h2 className="text-lg font-medium text-pink-900 dark:text-pink-300 mb-3">Today's Overview</h2>
-          <div className="flex overflow-x-auto gap-3 pb-2 -mx-1 px-1 snap-x">
-            <Card className="flex-shrink-0 w-[260px] p-4 bg-blush-100 dark:bg-pink-900/40 border-pink-200 dark:border-pink-700/50 snap-start card-glass">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-medium text-pink-900 dark:text-pink-300">🍼 Breastfeeding</h3>
-                  <p className="text-lg font-semibold mt-2 text-pink-800 dark:text-pink-200">2 sessions logged</p>
-                  <p className="text-sm text-pink-700 dark:text-pink-400">Total: 35 minutes</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="flex-shrink-0 w-[260px] p-4 bg-blue-100 dark:bg-blue-900/40 border-blue-200 dark:border-blue-700/50 snap-start card-glass">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-medium text-blue-900 dark:text-blue-300">😴 Baby Sleep</h3>
-                  <p className="text-lg font-semibold mt-2 text-blue-800 dark:text-blue-200">4h 30m total</p>
-                  <p className="text-sm text-blue-700 dark:text-blue-400">Last nap: 2h ago</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="flex-shrink-0 w-[260px] p-4 bg-teal-100 dark:bg-teal-900/40 border-teal-200 dark:border-teal-700/50 snap-start card-glass">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-medium text-teal-900 dark:text-teal-300">💧 Your Hydration</h3>
-                  <p className="text-lg font-semibold mt-2 text-teal-800 dark:text-teal-200">1.5L of 2L goal</p>
-                  <p className="text-sm text-teal-700 dark:text-teal-400">75% completed</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </section>
-
-        {/* Daily Motivation */}
-        <section className="py-4 fade-in-up" style={{ animationDelay: "0.4s" }}>
-          <Card className="p-5 bg-gradient-to-br from-lavender-100 to-blush-50 dark:from-purple-900/40 dark:to-pink-900/30 border-lavender-200 dark:border-purple-700/50 overflow-hidden relative card-glass">
-            <div className="absolute top-0 right-0 w-24 h-24 opacity-10">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-full h-full text-purple-600"
-              >
-                <path
-                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M9 9H9.01"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M15 9H15.01"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-
-            <div className="flex items-start">
-              <div className="mr-3 mt-1 bg-purple-100 dark:bg-purple-700 p-2 rounded-full">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-purple-700 dark:text-purple-300"
-                >
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-purple-900 dark:text-purple-300 text-lg">Daily Motivation</h3>
-                <div className="mt-3 p-4 bg-white/70 dark:bg-gray-800/70 rounded-lg shadow-sm border border-purple-100 dark:border-purple-700/50">
-                  <p className="text-purple-800 dark:text-purple-300 leading-relaxed">
-                    You're doing amazing, Ozoda! Every moment you spend nurturing your baby is building a foundation of
-                    love and security that will last a lifetime. Remember to nurture yourself too.
-                  </p>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Button className="btn-glow dark:bg-purple-800 dark:hover:bg-purple-700 dark:text-purple-200 focus-ring">
-                    View more tips
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-800/50 focus-ring"
-                  >
-                    Save for later
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Card>
-        </section>
-
-        {/* Community Preview */}
-        <section className="py-4 fade-in-up" style={{ animationDelay: "0.5s" }}>
-          <div className="flex justify-between items-center mb-3">
-            <h2 className="text-lg font-medium text-pink-900 dark:text-pink-300">Community Highlights</h2>
-            <button className="text-sm text-pink-600 dark:text-pink-400 font-medium focus-ring rounded-lg px-2 py-1">
-              See All
+          <div className="flex items-center space-x-3">
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <button className="p-2 rounded-full bg-pink-100 text-pink-600">
+                  <User className="w-5 h-5" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/profile">
+                    <User className="mr-2 h-4 w-4" />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/documents">
+                    <FileText className="mr-2 h-4 w-4" />
+                    Documents
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/about">
+                    <Info className="mr-2 h-4 w-4" />
+                    About Lactamira
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/settings">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <span className="text-red-500">Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <button className="p-2 rounded-full bg-pink-100 text-pink-600">
+              <Settings className="w-5 h-5" />
             </button>
           </div>
-          <Card className="p-4 bg-white dark:bg-gray-800/50 border-gray-100 dark:border-gray-700/50 card-glass">
-            <div className="flex items-start space-x-3">
-              <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-800 flex items-center justify-center text-teal-700 dark:text-teal-300 font-medium">
-                SM
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-1 container mx-auto p-4 pb-24 md:pb-6">
+        {/* Welcome Section */}
+        <section className="mb-6 fade-in-up">
+          <h2 className="text-2xl font-bold text-pink-800">{greeting}, Ozoda</h2>
+          <p className="text-pink-600">Here's what's important today for you and your baby</p>
+        </section>
+
+        {/* Quick Stats */}
+        <section className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4 fade-in-up" style={{ animationDelay: "0.1s" }}>
+          <Link
+            href="/breastfeeding"
+            className="card p-4 flex flex-col items-center text-center hover:shadow-xl transition-shadow"
+          >
+            <div className="p-3 rounded-full bg-pink-100 mb-2">
+              <Milk className="w-6 h-6 text-pink-600" />
+            </div>
+            <h3 className="font-semibold text-pink-800">Breastfeeding</h3>
+            <p className="text-sm text-gray-600 mt-1">2 sessions today</p>
+          </Link>
+
+          <Link
+            href="/growth"
+            className="card p-4 flex flex-col items-center text-center hover:shadow-xl transition-shadow"
+          >
+            <div className="p-3 rounded-full bg-blue-100 mb-2">
+              <Baby className="w-6 h-6 text-blue-600" />
+            </div>
+            <h3 className="font-semibold text-blue-800">Baby Growth</h3>
+            <p className="text-sm text-gray-600 mt-1">7.2kg · 65cm</p>
+          </Link>
+
+          <Link
+            href="/period"
+            className="card p-4 flex flex-col items-center text-center hover:shadow-xl transition-shadow"
+          >
+            <div className="p-3 rounded-full bg-purple-100 mb-2">
+              <Calendar className="w-6 h-6 text-purple-600" />
+            </div>
+            <h3 className="font-semibold text-purple-800">Cycle Tracker</h3>
+            <p className="text-sm text-gray-600 mt-1">Day 14 · Ovulation</p>
+          </Link>
+
+          <Link
+            href="/nutrition"
+            className="card p-4 flex flex-col items-center text-center hover:shadow-xl transition-shadow"
+          >
+            <div className="p-3 rounded-full bg-green-100 mb-2">
+              <Utensils className="w-6 h-6 text-green-600" />
+            </div>
+            <h3 className="font-semibold text-green-800">Nutrition</h3>
+            <p className="text-sm text-gray-600 mt-1">Iron-rich foods</p>
+          </Link>
+        </section>
+
+        {/* Breastfeeding Tracker */}
+        <section className="mb-6 fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <div className="card">
+            <div className="card-header">
+              <div className="card-icon">
+                <Milk className="w-5 h-5" />
               </div>
-              <div className="flex-1">
-                <div className="flex justify-between items-start">
-                  <h3 className="font-medium text-gray-900 dark:text-gray-100">Sarah M.</h3>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">2h ago</span>
+              Breastfeeding Tracker
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <h4 className="font-medium text-gray-700">Today's Sessions</h4>
+                <Link href="/breastfeeding" className="text-sm text-pink-600 font-medium">
+                  View All
+                </Link>
+              </div>
+
+              {breastfeedingSessions.map((session) => (
+                <div key={session.id} className="flex justify-between items-center p-3 bg-pink-50 rounded-xl">
+                  <div className="flex items-center">
+                    <div className="p-2 rounded-full bg-pink-100 mr-3">
+                      <Clock className="w-4 h-4 text-pink-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium">{session.time}</p>
+                      <p className="text-sm text-gray-600">{session.duration}</p>
+                    </div>
+                  </div>
+                  <div className="bg-pink-100 py-1 px-3 rounded-full text-sm font-medium text-pink-700">
+                    {session.side} Side
+                  </div>
                 </div>
-                <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
-                  Has anyone tried the new organic baby food brand? Looking for recommendations!
-                </p>
-                <div className="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
-                  <span className="mr-4">💬 12 replies</span>
-                  <span>❤️ 8 likes</span>
+              ))}
+
+              <button className="btn-primary w-full">Log New Session</button>
+            </div>
+          </div>
+        </section>
+
+        {/* Baby Growth */}
+        <section className="mb-6 fade-in-up" style={{ animationDelay: "0.3s" }}>
+          <div className="card">
+            <div className="card-header">
+              <div className="card-icon">
+                <LineChart className="w-5 h-5" />
+              </div>
+              Baby Growth Tracker
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <p className="text-gray-600">Name</p>
+                  <p className="font-medium">{babyData.name}</p>
                 </div>
+                <div className="flex justify-between">
+                  <p className="text-gray-600">Age</p>
+                  <p className="font-medium">{babyData.age}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="text-gray-600">Weight</p>
+                  <div className="text-right">
+                    <p className="font-medium">{babyData.weight}</p>
+                    <p className="text-sm text-green-600">{babyData.weightPercentile}th percentile</p>
+                  </div>
+                </div>
+                <div className="flex justify-between">
+                  <p className="text-gray-600">Height</p>
+                  <div className="text-right">
+                    <p className="font-medium">{babyData.height}</p>
+                    <p className="text-sm text-green-600">{babyData.heightPercentile}th percentile</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-center items-center">
+                <div className="w-full h-32 bg-blue-50 rounded-xl flex items-center justify-center mb-3">
+                  <p className="text-blue-800 text-center">
+                    Growth chart visualization
+                    <br />
+                    (75th percentile)
+                  </p>
+                </div>
+                <Link href="/growth" className="btn-secondary w-full text-center">
+                  View Full Growth Chart
+                </Link>
               </div>
             </div>
-          </Card>
+          </div>
+        </section>
+
+        {/* Hydration & Nutrition */}
+        <section className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4 fade-in-up" style={{ animationDelay: "0.4s" }}>
+          {/* Hydration Tracker */}
+          <div className="card">
+            <div className="card-header">
+              <div className="card-icon">
+                <Droplets className="w-5 h-5" />
+              </div>
+              Hydration Tracker
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="text-gray-600">Today's intake</p>
+                  <p className="text-2xl font-bold text-blue-600">{hydrationData.current}L</p>
+                </div>
+                <p className="text-gray-600">Goal: {hydrationData.goal}L</p>
+              </div>
+
+              <div className="w-full bg-gray-200 rounded-full h-4">
+                <div className="bg-blue-500 h-4 rounded-full" style={{ width: `${hydrationData.percentage}%` }}></div>
+              </div>
+
+              <div className="flex justify-between">
+                <p className="text-sm text-gray-600">{hydrationData.percentage}% of daily goal</p>
+                <button className="text-blue-600 font-medium text-sm">+ Add Water</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Nutrition Tips */}
+          <div className="card bg-gradient-to-br from-green-50 to-green-100">
+            <div className="card-header text-green-800">
+              <div className="card-icon bg-green-200 text-green-700">
+                <Utensils className="w-5 h-5" />
+              </div>
+              Nutrition Tip
+            </div>
+
+            <div className="space-y-4">
+              <h4 className="font-medium text-green-800">Iron-Rich Foods for Breastfeeding</h4>
+              <p className="text-green-800">
+                Include these iron-rich foods in your diet today to support your milk production and baby's development:
+              </p>
+              <ul className="list-disc list-inside text-green-800 space-y-1">
+                <li>Spinach and leafy greens</li>
+                <li>Lentils and beans</li>
+                <li>Lean red meat</li>
+                <li>Fortified cereals</li>
+              </ul>
+              <Link href="/nutrition" className="inline-block text-green-700 font-medium">
+                View Nutrition Guide →
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Cycle Tracker */}
+        <section className="mb-6 fade-in-up" style={{ animationDelay: "0.5s" }}>
+          <div className="card">
+            <div className="card-header">
+              <div className="card-icon">
+                <Moon className="w-5 h-5" />
+              </div>
+              Cycle Tracker
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="text-gray-600">Current Cycle Day</p>
+                  <div className="flex items-baseline">
+                    <p className="text-2xl font-bold text-purple-600">Day {cycleData.currentDay}</p>
+                    <p className="ml-2 text-purple-600 font-medium">{cycleData.phase}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-gray-600">Next Period</p>
+                  <p className="font-medium">{cycleData.nextPeriod}</p>
+                  <p className="text-sm text-gray-500">in {cycleData.daysUntilNextPeriod} days</p>
+                </div>
+              </div>
+
+              <div className="w-full h-16 bg-purple-50 rounded-xl flex items-center justify-around p-2">
+                {Array.from({ length: 28 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`h-full w-1.5 rounded-full ${
+                      i + 1 === cycleData.currentDay
+                        ? "bg-purple-600"
+                        : i + 1 <= cycleData.currentDay
+                          ? "bg-purple-300"
+                          : "bg-purple-100"
+                    }`}
+                  ></div>
+                ))}
+              </div>
+
+              <div className="flex justify-between text-sm text-gray-600">
+                <span>Period</span>
+                <span>Fertile Window</span>
+                <span>Luteal Phase</span>
+              </div>
+
+              <Link href="/period" className="btn-secondary w-full text-center">
+                View Cycle Details
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Reminders */}
+        <section className="mb-6 fade-in-up" style={{ animationDelay: "0.6s" }}>
+          <div className="card">
+            <div className="card-header">
+              <div className="card-icon">
+                <Clock className="w-5 h-5" />
+              </div>
+              Today's Reminders
+            </div>
+
+            <div className="space-y-3">
+              {reminders.map((reminder) => (
+                <div key={reminder.id} className="flex items-center p-3 bg-amber-50 rounded-xl">
+                  <div className="p-2 rounded-full bg-amber-100 mr-3">
+                    <Clock className="w-4 h-4 text-amber-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex justify-between">
+                      <p className="font-medium">{reminder.title}</p>
+                      <p className="text-amber-600 font-medium">{reminder.time}</p>
+                    </div>
+                    <p className="text-sm text-gray-600">{reminder.description}</p>
+                  </div>
+                </div>
+              ))}
+
+              <button className="btn-secondary w-full">Add New Reminder</button>
+            </div>
+          </div>
+        </section>
+
+        {/* Motivational Quote */}
+        <section className="mb-6 fade-in-up" style={{ animationDelay: "0.7s" }}>
+          <div className="card bg-gradient-to-br from-pink-50 to-purple-50 border border-pink-100">
+            <div className="text-center space-y-4">
+              <h3 className="text-lg font-semibold text-pink-800">Daily Motivation</h3>
+              <p className="text-gray-700 italic">"{motivationalQuote.text}"</p>
+              <p className="text-sm text-gray-600">— {motivationalQuote.author}</p>
+            </div>
+          </div>
         </section>
       </main>
+
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-lg md:hidden">
+        <div className="flex justify-around items-center p-2">
+          <NavButton icon={<Home />} label="Home" active />
+          <NavButton icon={<Milk />} label="Feeding" />
+          <NavButton icon={<Baby />} label="Growth" />
+          <NavButton icon={<Calendar />} label="Cycle" />
+          <NavButton icon={<Info />} label="About" href="/about" />
+        </div>
+      </nav>
     </div>
   )
 }
 
-function FeatureCard({
-  icon,
-  title,
-  description,
-  bgColor,
-  borderColor,
-}: {
-  icon: string
-  title: string
-  description: string
-  bgColor: string
-  borderColor: string
-}) {
+function NavButton({ icon, label, active = false, href = "#" }) {
   return (
-    <Card
-      className={`p-4 ${bgColor} ${borderColor} hover:shadow-md transition-shadow flex flex-col h-[100px] justify-between card-glass`}
-    >
-      <div className="text-2xl mb-1">{icon}</div>
-      <div>
-        <h3 className="font-medium text-gray-900 dark:text-gray-100">{title}</h3>
-        <p className="text-xs text-gray-700 dark:text-gray-300 mt-1">{description}</p>
-      </div>
-    </Card>
+    <Link href={href} className="flex flex-col items-center p-2">
+      <div className={`p-1.5 rounded-full ${active ? "bg-pink-100 text-pink-600" : "text-gray-500"}`}>{icon}</div>
+      <span className={`text-xs mt-1 ${active ? "text-pink-600 font-medium" : "text-gray-500"}`}>{label}</span>
+    </Link>
   )
 }

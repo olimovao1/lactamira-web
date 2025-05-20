@@ -4,68 +4,84 @@
 
 @layer base {
   :root {
-    --radius: 0.75rem;
-    --border: 220 14% 95%;
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --primary: 275 91% 65%;
-    --primary-foreground: 0 0% 100%;
-    --accent: 248 100% 91%;
-    --muted: 240 20% 98%;
+    --font-nunito: "Nunito", sans-serif;
   }
 
-  .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --border: 217 19% 27%;
-    --primary: 275 91% 65%;
-    --primary-foreground: 0 0% 100%;
-    --accent: 248 100% 91%;
-    --muted: 217 19% 27%;
+  body {
+    @apply text-gray-800;
   }
 }
 
 @layer components {
-  .card-glass {
-    @apply bg-white/60 backdrop-blur-md border border-white/30 shadow-xl rounded-xl;
+  .card {
+    @apply bg-white rounded-2xl shadow-lg p-5;
   }
 
-  .btn-glow {
-    @apply bg-pink-100 hover:bg-pink-200 text-pink-900 font-medium rounded-lg shadow-md transition-all;
+  .card-header {
+    @apply text-lg font-semibold text-pink-800 mb-3 flex items-center;
   }
 
-  .fade-in-up {
-    animation: fade-in-up 0.3s ease-out both;
+  .card-icon {
+    @apply mr-2 p-2 rounded-full bg-pink-100 text-pink-600;
+  }
+
+  .btn-primary {
+    @apply bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-xl transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-pink-100 hover:bg-pink-200 text-pink-800 font-medium py-2 px-4 rounded-xl transition-colors;
+  }
+
+  .input-field {
+    @apply border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-pink-500;
   }
 }
 
-@keyframes fade-in-up {
-  0% {
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
     opacity: 0;
-    transform: translateY(10px);
   }
-  100% {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Focus ring accessibility */
-.focus-ring {
-  @apply focus-visible:ring-2 focus-visible:ring-pink-500 focus:outline-none;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Utility for screen readers */
-.sr-only {
-  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
 }
 
-/* Hide scrollbar but allow scrolling */
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+::-webkit-scrollbar-thumb {
+  background: #fecdd3;
+  border-radius: 10px;
 }
 
-.hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+::-webkit-scrollbar-thumb:hover {
+  background: #f9a8b4;
 }
