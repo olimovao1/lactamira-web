@@ -15,13 +15,13 @@ export default function BreastfeedingPage() {
   ])
 
   // Group sessions by date
-  const groupedSessions = sessions.reduce((acc, session) => {
+  const groupedSessions = sessions.reduce((acc: Record<string, typeof sessions>, session) => {
     if (!acc[session.date]) {
       acc[session.date] = []
     }
     acc[session.date].push(session)
     return acc
-  }, {})
+  }, {} as Record<string, typeof sessions>)
 
   return (
     <div className="min-h-screen bg-pink-50 pb-20">
@@ -94,7 +94,7 @@ export default function BreastfeedingPage() {
                 <h3 className="font-medium text-gray-700">{date}</h3>
 
                 <div className="card space-y-3">
-                  {dateSessions.map((session) => (
+                  {(dateSessions as typeof sessions).map((session) => (
                     <div key={session.id} className="flex justify-between items-center p-3 bg-pink-50 rounded-xl">
                       <div className="flex items-center">
                         <div className="p-2 rounded-full bg-pink-100 mr-3">

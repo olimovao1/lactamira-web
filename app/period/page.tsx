@@ -33,7 +33,7 @@ export default function PeriodPage() {
   }
 
   // Determine day types for styling
-  const getDayType = (day) => {
+  const getDayType = (day: number | null): string => {
     if (!day) return "empty"
 
     const today = new Date()

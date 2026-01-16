@@ -449,7 +449,7 @@ export default function ProfilePage() {
   )
 }
 
-function TabButton({ label, active, onClick }) {
+function TabButton({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
@@ -462,7 +462,23 @@ function TabButton({ label, active, onClick }) {
   )
 }
 
-function ProfileField({ label, value, type = "text", isEditing, multiline = false, options = [], onChange }) {
+function ProfileField({ 
+  label, 
+  value, 
+  type = "text", 
+  isEditing, 
+  multiline = false, 
+  options = [], 
+  onChange 
+}: { 
+  label: string; 
+  value: string; 
+  type?: string; 
+  isEditing: boolean; 
+  multiline?: boolean; 
+  options?: string[]; 
+  onChange: (value: string) => void 
+}) {
   return (
     <div className="flex flex-col md:flex-row md:items-center">
       <label className="text-gray-700 md:w-1/3 mb-1 md:mb-0">{label}</label>
@@ -497,7 +513,7 @@ function ProfileField({ label, value, type = "text", isEditing, multiline = fals
   )
 }
 
-function calculateAge(dateString) {
+function calculateAge(dateString: string): string {
   const birthDate = new Date(dateString)
   const today = new Date()
 
@@ -575,7 +591,7 @@ function Baby() {
   )
 }
 
-function NavButton({ icon, label, active = false }) {
+function NavButton({ icon, label, active = false }: { icon: React.ReactNode; label: string; active?: boolean }) {
   return (
     <button className="flex flex-col items-center p-2">
       <div className={`p-1.5 rounded-full ${active ? "bg-amber-100 text-amber-600" : "text-gray-500"}`}>{icon}</div>

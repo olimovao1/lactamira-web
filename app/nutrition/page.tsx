@@ -245,7 +245,7 @@ export default function NutritionPage() {
   )
 }
 
-function Baby({ className }) {
+function Baby({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
